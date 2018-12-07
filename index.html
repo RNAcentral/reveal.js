@@ -24,8 +24,201 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section data-background-image="/img/chromosomes_and_dna.png">Slide 1</section>
-				<section data-background-color="#FFFFFF">Slide 2</section>
+				<section data-background-image="/img/chromosomes_and_dna.png">
+                    <h3>RNAcentral sequence search</h3>
+                    <p>Plan:</p>
+                    <ul>
+                        <li>RNAcentral sequence search from the user standpoint</li>
+                        <li>RNAcentral sequence search architecture</li>
+                        <li>DevOps technologies and methodologies: OpenStack, Terraform, Ansible</li>
+                        <li>Backend technologies: aiohttp</li>
+                    </ul>
+				</section>
+				<section data-background-color="#FFFFFF">
+					<h4>Current RNAcentral text search takes minutes to 10s of minutes</h4>
+                    <img src="/img/old_sequence_search.png" />
+				</section>
+				<section data-background-color="#FFFFFF">
+                    <h4>Demo</h4>
+                    <video>
+                        <source data-src="img/SequenceSearch.mp4" type="video/mp4" />
+                    </video>
+				</section>
+                <section data-background-color="#FFFFFF">
+                    <h4>Search RNAcentral member databases</h4>
+                </section>
+                <section data-background-color="#FFFFFF">
+                    <h4>Toggle facets provided by EBI text search</h4>
+                    <video>
+                        <source data-src="https://www.youtube.com/watch?v=1ilWwIdv0oY" type="video/webm" />
+                    </video>
+                </section>
+				<section data-background-color="#FFFFFF">
+					<h4>Architecture</h4>
+                    <div style="display:flex">
+                        <div style="width:50%">
+                            <img src="img/sequence_search.png" />
+                        </div>
+                        <div style="width:50%; padding-top: 10px;"><small>
+                            <ol>
+                                <li> user sends search request</li>
+                                <li> producer maps search to database-specific consumers</li>
+                                <li> consumers return results to producer</li>
+                                <li> producer saves result to a database</li>
+                                <li> producer sends additional query to EBI text search</li>
+                                <li> EBI text search augments sequence search results with text search facets</li>
+                                <li> producer returns response</li>
+                            </ol>
+                        </div></small>
+
+                    </div>
+				</section>
+                <section data-background-color="#FFFFFFF">
+
+                </section>
+
+                <section data-background-color="#FFFFFF">
+                    <h4>Technology stack</h4>
+                    <ul>
+                        <li>DevOps: OpenStack Embassy Cloud, Ansible, Terraform, Jenkins, Docker-compose</li>
+                        <li>Backend: aiohttp, postgres, sqlalchemy, swagger</li>
+                        <li>Frontend: react, webpack, npm scripts, EBI pattern library, Zurb Foundation</li>
+                        <li>Bioinformatics: nhmmer</li>
+                    </ul>
+                </section>
+                <section>
+                    <h4>Don't try these at home, kids:</h4>
+                    <ul>
+                        <li>Kafka + Zookeeper / Kafka Stream</li>
+                        <li>Akka / Akka Streams</li>
+                    </ul>
+                    <br/>
+                    <p>
+                      Don't waste time on these technologies, they are good for corporate finance, but not cost-efficient in EBI environment.
+                    </p>
+                </section>
+                <section data-background-color="#FFFFFF">
+                    <h4>Devops: OpenStack cloud</h4>
+                    <p></p>
+                </section>
+                <section>
+                    <h4>DevOps: Infrastructure as Code (IaC) and Immutable Server</h4>
+                    <pre>
+    - Hey, Blake, did you update node.js on OY machine?
+    - Let me check... No, I think, I didn't.
+    - Anton, did you update node.js on OY machine?
+    - Not sure, I did something, but I think, not.
+      Look into Confluence page.
+    - Hmm... Ah, nevermind, I updated it
+      myself for SAB 3 moths ago...
+                    </pre>
+                </section>
+				<section data-background-color="#FFFFFF">
+                    <h4>Methodologies</h4>
+                    <ul>
+                        <li>Infrastructure as Code (IaC): You don't document your infrastructure. You program your infrastructure and store it in your repository as code.</li>
+                        <li>Immutable Server: You don't touch servers with your dirty hands (unless for debugging purposes), you might not even have access to them. Want to modify anything - just edit your IaC and rebuild everything.</li>
+                    </ul>
+				</section>
+                <section data-background-color="#FFFFFF">
+                    <h4>Technologies</h4>
+                    <ul>
+                        <li>Hashicorp Terraform - cross-cloud solution for managing Infrastructure as Code</li>
+                        <li>Ansible - software installation automation solution</li>
+                    </ul>
+                    <img height="200px" style="display:inline" src="https://camo.githubusercontent.com/2f78124a1f0f4905d95b9e85b1fa00afddcf3e29/68747470733a2f2f63646e2e7261776769742e636f6d2f6861736869636f72702f7465727261666f726d2d776562736974652f6d61737465722f636f6e74656e742f736f757263652f6173736574732f696d616765732f6c6f676f2d6861736869636f72702e737667"/>
+                    <img height="200px" style="display:inline" src="https://keithtenzer.files.wordpress.com/2017/11/ansible-logo.png?w=359&h=284"/>
+                </section>
+                <section data-background-color="#FFFFFF">
+                    <h4>Terraform example</h4>
+                    <pre><code>
+resource "openstack_compute_instance_v2" "consumer" {
+  count = 10
+  depends_on = ["openstack_compute_keypair_v2.sequence_search"]
+  name = "consumer-${count.index + 1}"
+  image_name = "${var.image}"
+  flavor_name = "${var.flavor}"
+  key_pair = "${openstack_compute_keypair_v2.sequence_search.name}"
+  security_groups = [ "${openstack_compute_secgroup_v2.sequence_search.name}" ]
+  network {
+    uuid = "${openstack_networking_network_v2.sequence_search.id}"
+    fixed_ip_v4 = "192.168.0.${count.index + 7}"
+  }
+}
+                    </code></pre>
+
+                    <pre><code>$ terraform apply</code></pre>
+                    <pre><code>$ terraform destroy</code></pre>
+                </section>
+                <section data-background-color="#FFFFFF">
+                    <h4>Ansible basics</h4>
+                    <ul>
+                        <li>Playbooks</li>
+                        <li>Plays</li>
+                        <li>Roles</li>
+                        <li>Tasks</li>
+                    </ul>
+                </section>
+                <section data-background-color="#FFFFFF">
+                    <h2>aiohttp, python3 and cooperative multitasking</h2>
+                </section>
+                <section data-background-color="#FFFFFF">
+                    <h4>Preemptive multitasking vs cooperative multitasking</h4>
+                    <ul>
+                        <li><small>
+                            Preemptive multitasking is a traditional way of how multitasking is implemented at the Operating
+                            System level - via processes or threads. Operating System kernel is responsible for <b>forcibly</b> switching
+                            the CPU resources between concurrent processes or threads.
+                        </small></li><br/>
+                        <li><small>
+                            Cooperative multitasking is an alternative popular implementation of multitasking, where multiple
+                            execution 'threads' <b>deliberately</b> pass control to each other, when planning to execute a blocking
+                            operation. Examples of this mechanism are coroutines or fibers.
+                        </small></li>
+                    </ul>
+                </section>
+				<section>
+					<h4>AioHTTP and Python concurrency</h4>
+                    <div><a href="https://www.dabeaz.com/python/UnderstandingGIL.pdf">David Beasley (2012)</a> on Global Interpreter Lock (GIL):</div>
+                    <pre>
+ Performance on a quad-core MacPro 4
+
+ - Sequential : 7.8s
+ - Threaded (2 threads): 15.4s (2X slower!)
+
+ Performance if work divided across 4 threads
+
+ - Threaded (4 threads) : 15.7s (about the same)
+
+ Performance if all but one CPU is disabled
+
+ - Threaded (2 threads) : 11.3s (~35% faster than running
+ - Threaded (4 threads) : 11.6s         with all 4 cores)
+
+ Think about it...
+                    </pre>
+				</section>
+                <section data-background-color="#FFFFFF">
+                    <h4>Advance of coroutines in Python 3</h4>
+                    <ul>
+                        <li>2001: <a href="https://www.python.org/dev/peps/pep-0234/">PEP234</a> - Iterators</li>
+                        <li>2001: <a href="https://www.python.org/dev/peps/pep-0255/">PEP255</a> - Generators</li>
+                        <li>2005: <a href="https://www.python.org/dev/peps/pep-0342/">PEP342</a> - yield expression</li>
+                        <li>2009: <a href="https://www.python.org/dev/peps/pep-0380/">PEP380</a> - yield from</li>
+                        <li>2012: <a href="https://www.python.org/dev/peps/pep-3156/">PEP3156</a> - asyncio</li>
+                        <li>2015: <a href="https://www.python.org/dev/peps/pep-0492/">PEP492</a> - async/await</li>
+                        <li>2016: <a href="https://www.python.org/dev/peps/pep-0525/">PEP525</a> - asynchronous generators</li>
+                    </ul>
+                </section>
+                <section>
+
+                </section>
+                <section data-background-color="#FFFFFF">
+                    <h4>aiohttp</h4>
+                    <img width="200px" src="https://warehouse-camo.cmh1.psfhosted.org/6427735ab4e07b8944977bacaeb0a7f2aecfbc9f/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f37373735643432643936306136396539386665636632373062646562366635373f73697a653d323235" />
+                    <img width="200px" src="https://avatars2.githubusercontent.com/u/598990?s=400&v=4" />
+                    <img width="200px" src="https://2018.uapycon.org/img/speakers/novik.jpg" />
+                </section>
 			</div>
 			<img style="border: none; background: none; box-shadow: none; position: absolute; bottom: 30px; left: 0%; transform: scale(0.5); z-index: 1000;" src="/img/logo.png">
 			<footer style="position: absolute; background: linear-gradient(to right, rgba(0,67,66,1), rgba(0,67,66,0.35)); width: 100%; bottom: 15px; height:100px; z-index: 1;"></footer>
