@@ -35,20 +35,28 @@
                     </ul>
 				</section>
                 <section data-background-color="#FFFFFF">
-                    <h4>Why RNAcentral sequence search needs improvement?</h4>
+                    <h3>RNAcentral sequence search</h3>
+                    <ul>
+                        <li>Powered by NHMMER</li>
+                        <li>Runs as a backend job on a single EBI VM</li>
+                    </ul>
+
+                </section>
+                <section data-background-color="#FFFFFF">
+                    <h3>Why RNAcentral sequence search needs improvement?</h3>
                     <ul>
                         <li>current search can be slow</li>
                         <li>searches for rRNA are almost guaranteed to fail</li>
                         <li>we want a better user interface</li>
-                        <li>we want to provide a search API for miRBase</li>
+                        <li>we want to provide a search API for miRBase and other consortium member databases</li>
                     </ul>
                 </section>
 				<section data-background-color="#FFFFFF">
-					<h4>Current search implementation can be slow</h4>
+					<h3>Current search can be slow</h3>
                     <img src="/img/old_sequence_search.png" />
 				</section>
 				<section data-background-color="#FFFFFF">
-					<h4>Current search implementation can be slow</h4>
+					<h3>Current search can be slow</h3>
                     <ul>
                         <li>75% of searches finish in ~1 min</li>
                         <li>85% of searches finish in <2 min</li>
@@ -56,16 +64,29 @@
                         <li>~4% of searches are terminated after an hour</li>
                     </ul>
 				</section>
-                <section>
+                <section data-background-color="#FFFFFF">
                     <h3 style="text-transform: none;">Special case: rRNAs</h3>
                     <ul>
-                        <li>Out of 14.5 million sequences in RNAcentral, 8.7 million are rRNAs</li>
-                        <li>8 million rRNAs in ENA, 4.5 million rRNAs in SILVA, 1 million rRNAs in Greengenes</li>
+                        <li>8.7 million / 14.5 million sequences in RNAcentral are rRNAs</li>
+                        <li>8 million rRNAs in ENA, 4.5 million rRNAs in SILVA, 1 million rRNAs in Greengenes - sequence similarity is too high for NHMMER to discrimiate</li>
                         <li>A query against a reduced set of 782,392 rRNAs finishes in 2h 40min with 725,365 hits (92% of total), 5.7 GB output file</li>
                     </ul>
                 </section>
+                <section data-background-color="#FFFFFF">
+                    <h3>rRNAs handling:</h3>
+                    <ul>
+                        <li>Reduced set</li>
+                        <li>Blacklist</li>
+                        <li>Whitelist</li>
+                    </ul>
+                </section>
+                <section>
+                    Sequence search UI:
+                    facets of EBI text search
+                    image here
+                </section>
 				<section data-background-color="#FFFFFF">
-                    <h4>Demo</h4>
+                    <h3>Demo</h3>
                     <video>
                         <source data-src="img/SequenceSearch.mp4" type="video/mp4" />
                     </video>
@@ -79,6 +100,10 @@
                         <source data-src="https://www.youtube.com/watch?v=1ilWwIdv0oY" type="video/webm" />
                     </video>
                 </section>
+                <section data-background-color="#FFFFFF">
+                    <h3>Demo</h3>
+                    <iframe width="800" height="480" src="https://www.youtube.com/embed/1ilWwIdv0oY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </section>
 				<section data-background-color="#FFFFFF">
 					<h4>Architecture</h4>
                     <div style="display:flex">
@@ -88,20 +113,16 @@
                         <div style="width:50%; padding-top: 10px;"><small>
                             <ol>
                                 <li> user sends search request</li>
-                                <li> producer maps search to database-specific consumers</li>
-                                <li> consumers return results to producer</li>
+                                <li> producer finds a free consumer and schedules database-specific job chunk to it</li>
+                                <li> consumers return result to producer</li>
                                 <li> producer saves result to a database</li>
                                 <li> producer sends additional query to EBI text search</li>
                                 <li> EBI text search augments sequence search results with text search facets</li>
                                 <li> producer returns response</li>
                             </ol>
-                        </div></small>
-
+                        </small></div>
                     </div>
 				</section>
-                <section data-background-color="#FFFFFFF">
-
-                </section>
 
                 <section data-background-color="#FFFFFF">
                     <h4>Technology stack</h4>
