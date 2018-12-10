@@ -34,10 +34,36 @@
                         <li>Backend technologies: aiohttp</li>
                     </ul>
 				</section>
+                <section data-background-color="#FFFFFF">
+                    <h4>Why RNAcentral sequence search needs improvement?</h4>
+                    <ul>
+                        <li>current search can be slow</li>
+                        <li>searches for rRNA are almost guaranteed to fail</li>
+                        <li>we want a better user interface</li>
+                        <li>we want to provide a search API for miRBase</li>
+                    </ul>
+                </section>
 				<section data-background-color="#FFFFFF">
-					<h4>Current RNAcentral text search takes minutes to 10s of minutes</h4>
+					<h4>Current search implementation can be slow</h4>
                     <img src="/img/old_sequence_search.png" />
 				</section>
+				<section data-background-color="#FFFFFF">
+					<h4>Current search implementation can be slow</h4>
+                    <ul>
+                        <li>75% of searches finish in ~1 min</li>
+                        <li>85% of searches finish in <2 min</li>
+                        <li>The remaining searches can take up to an hour</li>
+                        <li>~4% of searches are terminated after an hour</li>
+                    </ul>
+				</section>
+                <section>
+                    <h3 style="text-transform: none;">Special case: rRNAs</h3>
+                    <ul>
+                        <li>Out of 14.5 million sequences in RNAcentral, 8.7 million are rRNAs</li>
+                        <li>8 million rRNAs in ENA, 4.5 million rRNAs in SILVA, 1 million rRNAs in Greengenes</li>
+                        <li>A query against a reduced set of 782,392 rRNAs finishes in 2h 40min with 725,365 hits (92% of total), 5.7 GB output file</li>
+                    </ul>
+                </section>
 				<section data-background-color="#FFFFFF">
                     <h4>Demo</h4>
                     <video>
