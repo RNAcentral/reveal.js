@@ -28,27 +28,25 @@
                     <h3>RNAcentral sequence search</h3>
                     <p>Plan:</p>
                     <ul>
-                        <li>RNAcentral sequence search from the user standpoint</li>
+                        <li>Issues with current RNAcentral sequence search</li>
                         <li>RNAcentral sequence search architecture</li>
-                        <li>DevOps technologies and methodologies: OpenStack, Terraform, Ansible</li>
-                        <li>Backend technologies: aiohttp</li>
+                        <li>DevOps technologies and methodologies: OpenStack, Terraform, Ansible, <Jenkins></Jenkins></li>
                     </ul>
 				</section>
                 <section data-background-color="#FFFFFF">
                     <h3>RNAcentral sequence search</h3>
-                    <ul>
-                        <li>Powered by NHMMER</li>
-                        <li>Runs as a backend job on a single EBI VM</li>
-                    </ul>
-
+                    <div>
+                        Powered by NHMMER, runs as a backend job on a single EBI VM.
+                    </div>
+                    <img src="/img/rnacentral_sequence_search.png" />
                 </section>
                 <section data-background-color="#FFFFFF">
                     <h3>Why RNAcentral sequence search needs improvement?</h3>
                     <ul>
-                        <li>current search can be slow</li>
-                        <li>searches for rRNA are almost guaranteed to fail</li>
-                        <li>we want a better user interface</li>
-                        <li>we want to provide a search API for miRBase and other consortium member databases</li>
+                        <li>Current search can be slow</li>
+                        <li>Searches for rRNA are almost guaranteed to fail</li>
+                        <li>We want a better user interface</li>
+                        <li>We want to provide a search API for miRBase and other consortium member databases</li>
                     </ul>
                 </section>
 				<section data-background-color="#FFFFFF">
@@ -74,31 +72,34 @@
                 </section>
                 <section data-background-color="#FFFFFF">
                     <h3>rRNAs handling:</h3>
-                    <ul>
-                        <li>Reduced set</li>
-                        <li>Blacklist</li>
-                        <li>Whitelist</li>
-                    </ul>
-                </section>
-                <section>
-                    Sequence search UI:
-                    facets of EBI text search
-                    image here
-                </section>
-				<section data-background-color="#FFFFFF">
-                    <h3>Demo</h3>
-                    <video>
-                        <source data-src="img/SequenceSearch.mp4" type="video/mp4" />
-                    </video>
-				</section>
-                <section data-background-color="#FFFFFF">
-                    <h4>Search RNAcentral member databases</h4>
+                    <div style="display:flex">
+                        <div style="width:50%">
+                            <img style="height:400px" src="img/rRNA.png" />
+                        </div>
+                        <div style="width:50%; padding-top: 10px">
+                            <ul>
+                                <li>Reduced set</li>
+                                <li>Blacklist</li>
+                                <li>Whitelist</li>
+                            </ul>
+                        </div>
+                    </div>
                 </section>
                 <section data-background-color="#FFFFFF">
-                    <h4>Toggle facets provided by EBI text search</h4>
-                    <video>
-                        <source data-src="https://www.youtube.com/watch?v=1ilWwIdv0oY" type="video/webm" />
-                    </video>
+                    <h4>Collaboration with miRBase</h4>
+                    <img src="/img/mirbase.png" />
+                </section>
+                <section data-background-color="#FFFFFF">
+                    <h4>Sequence search as a service for RNAcentral databases</h4>
+                    <img src="/img/databases.png" />
+                </section>
+                <section data-background-color="#FFFFFF">
+                    <h4>Search RNAcentral: Swagger API</h4>
+                    <img style="height:600px" src="/img/swagger.png" />
+                </section>
+                <section data-background-color="#FFFFFF">
+                    <h4>Sequence search results facets</h4>
+                    <img src="/img/facets.png" />
                 </section>
                 <section data-background-color="#FFFFFF">
                     <h3>Demo</h3>
@@ -127,26 +128,15 @@
                 <section data-background-color="#FFFFFF">
                     <h4>Technology stack</h4>
                     <ul>
-                        <li>DevOps: OpenStack Embassy Cloud, Ansible, Terraform, Jenkins, Docker-compose</li>
+                        <li>DevOps: OpenStack Embassy Cloud, Jenkins, Terraform, Ansible, Docker-compose</li>
                         <li>Backend: aiohttp, postgres, sqlalchemy, swagger</li>
                         <li>Frontend: react, webpack, npm scripts, EBI pattern library, Zurb Foundation</li>
                         <li>Bioinformatics: nhmmer</li>
                     </ul>
                 </section>
-                <section>
-                    <h4>Don't try these at home, kids:</h4>
-                    <ul>
-                        <li>Kafka + Zookeeper / Kafka Stream</li>
-                        <li>Akka / Akka Streams</li>
-                    </ul>
-                    <br/>
-                    <p>
-                      Don't waste time on these technologies, they are good for corporate finance, but not cost-efficient in EBI environment.
-                    </p>
-                </section>
                 <section data-background-color="#FFFFFF">
                     <h4>Devops: OpenStack cloud</h4>
-                    <p></p>
+                    <img src="/img/openstack.png">
                 </section>
                 <section>
                     <h4>DevOps: Infrastructure as Code (IaC) and Immutable Server</h4>
@@ -170,101 +160,84 @@
                 <section data-background-color="#FFFFFF">
                     <h4>Technologies</h4>
                     <ul>
+                        <li>Jenkins - parametrized CD pipelines</li>
+                    </ul>
+                    <img style="display:inline" src="/img/jenkins.png"/>
+                </section>
+                <section data-background-color="#FFFFFF">
+                    <h4>Technologies</h4>
+                    <ul>
                         <li>Hashicorp Terraform - cross-cloud solution for managing Infrastructure as Code</li>
-                        <li>Ansible - software installation automation solution</li>
                     </ul>
                     <img height="200px" style="display:inline" src="https://camo.githubusercontent.com/2f78124a1f0f4905d95b9e85b1fa00afddcf3e29/68747470733a2f2f63646e2e7261776769742e636f6d2f6861736869636f72702f7465727261666f726d2d776562736974652f6d61737465722f636f6e74656e742f736f757263652f6173736574732f696d616765732f6c6f676f2d6861736869636f72702e737667"/>
-                    <img height="200px" style="display:inline" src="https://keithtenzer.files.wordpress.com/2017/11/ansible-logo.png?w=359&h=284"/>
                 </section>
                 <section data-background-color="#FFFFFF">
                     <h4>Terraform example</h4>
-                    <pre><code>
-resource "openstack_compute_instance_v2" "consumer" {
-  count = 10
+                    <pre><code>resource "openstack_compute_instance_v2" "producer" {
   depends_on = ["openstack_compute_keypair_v2.sequence_search"]
-  name = "consumer-${count.index + 1}"
+  name = "producer"
   image_name = "${var.image}"
   flavor_name = "${var.flavor}"
   key_pair = "${openstack_compute_keypair_v2.sequence_search.name}"
   security_groups = [ "${openstack_compute_secgroup_v2.sequence_search.name}" ]
   network {
     uuid = "${openstack_networking_network_v2.sequence_search.id}"
-    fixed_ip_v4 = "192.168.0.${count.index + 7}"
+    fixed_ip_v4 = "192.168.0.5"
   }
-}
-                    </code></pre>
+}</code></pre>
 
                     <pre><code>$ terraform apply</code></pre>
                     <pre><code>$ terraform destroy</code></pre>
                 </section>
                 <section data-background-color="#FFFFFF">
+                    <h4>Technologies</h4>
+                    <ul>
+                        <li>Ansible - software installation automation solution</li>
+                    </ul>
+                    <img height="200px" style="display:inline" src="https://keithtenzer.files.wordpress.com/2017/11/ansible-logo.png?w=359&h=284"/>
+                </section>
+                <section data-background-color="#FFFFFF">
                     <h4>Ansible basics</h4>
                     <ul>
-                        <li>Playbooks</li>
-                        <li>Plays</li>
-                        <li>Roles</li>
-                        <li>Tasks</li>
+                        <li>Role - reusable pieces of configuration (e.g. Postgres database role)</li>
+                        <li>Task - atomic elements of a role</li>
+                        <li>Inventory - set of hosts to run roles against</li>
+                        <li>Playbook - set of roles with specific variable values</li>
                     </ul>
                 </section>
                 <section data-background-color="#FFFFFF">
-                    <h2>aiohttp, python3 and cooperative multitasking</h2>
-                </section>
-                <section data-background-color="#FFFFFF">
-                    <h4>Preemptive multitasking vs cooperative multitasking</h4>
-                    <ul>
-                        <li><small>
-                            Preemptive multitasking is a traditional way of how multitasking is implemented at the Operating
-                            System level - via processes or threads. Operating System kernel is responsible for <b>forcibly</b> switching
-                            the CPU resources between concurrent processes or threads.
-                        </small></li><br/>
-                        <li><small>
-                            Cooperative multitasking is an alternative popular implementation of multitasking, where multiple
-                            execution 'threads' <b>deliberately</b> pass control to each other, when planning to execute a blocking
-                            operation. Examples of this mechanism are coroutines or fibers.
-                        </small></li>
-                    </ul>
-                </section>
-				<section>
-					<h4>AioHTTP and Python concurrency</h4>
-                    <div><a href="https://www.dabeaz.com/python/UnderstandingGIL.pdf">David Beasley (2012)</a> on Global Interpreter Lock (GIL):</div>
-                    <pre>
- Performance on a quad-core MacPro 4
-
- - Sequential : 7.8s
- - Threaded (2 threads): 15.4s (2X slower!)
-
- Performance if work divided across 4 threads
-
- - Threaded (4 threads) : 15.7s (about the same)
-
- Performance if all but one CPU is disabled
-
- - Threaded (2 threads) : 11.3s (~35% faster than running
- - Threaded (4 threads) : 11.6s         with all 4 cores)
-
- Think about it...
-                    </pre>
-				</section>
-                <section data-background-color="#FFFFFF">
-                    <h4>Advance of coroutines in Python 3</h4>
-                    <ul>
-                        <li>2001: <a href="https://www.python.org/dev/peps/pep-0234/">PEP234</a> - Iterators</li>
-                        <li>2001: <a href="https://www.python.org/dev/peps/pep-0255/">PEP255</a> - Generators</li>
-                        <li>2005: <a href="https://www.python.org/dev/peps/pep-0342/">PEP342</a> - yield expression</li>
-                        <li>2009: <a href="https://www.python.org/dev/peps/pep-0380/">PEP380</a> - yield from</li>
-                        <li>2012: <a href="https://www.python.org/dev/peps/pep-3156/">PEP3156</a> - asyncio</li>
-                        <li>2015: <a href="https://www.python.org/dev/peps/pep-0492/">PEP492</a> - async/await</li>
-                        <li>2016: <a href="https://www.python.org/dev/peps/pep-0525/">PEP525</a> - asynchronous generators</li>
-                    </ul>
+                    <h4>Background worker solution:</h4>
+                    <div>What option to use?</div>
                 </section>
                 <section>
-
+                    <h4>Don't try these at home, kids:</h4>
+                    <ul>
+                        <li>Kafka + Zookeeper / Kafka Stream</li>
+                        <li>Akka / Akka Streams</li>
+                    </ul>
+                    <br/>
+                    <p>
+                      Don't waste time on these technologies, they are good for corporate finance, but not cost-efficient in EBI environment.
+                    </p>
                 </section>
                 <section data-background-color="#FFFFFF">
-                    <h4>aiohttp</h4>
-                    <img width="200px" src="https://warehouse-camo.cmh1.psfhosted.org/6427735ab4e07b8944977bacaeb0a7f2aecfbc9f/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f37373735643432643936306136396539386665636632373062646562366635373f73697a653d323235" />
-                    <img width="200px" src="https://avatars2.githubusercontent.com/u/598990?s=400&v=4" />
-                    <img width="200px" src="https://2018.uapycon.org/img/speakers/novik.jpg" />
+                    <h4>Theoretically viable parallel worker solutions:</h4>
+                    <ul>
+                        <li>Celery/RabbitMQ</li>
+                        <li>Hadoop/Spark</li>
+                    </ul>
+                </section>
+                <section data-background-color="#FFFFFF">
+                    <h4>We're using</h4>
+                    <div>aiohttp - new python3 asynchronous framework, built on top of asyncio</div>
+                    <img src="/img/aiohttp.png" />
+                </section>
+                <section data-background-color="#FFFFFF">
+                    <h4>Conclusions</h4>
+                    <ul>
+                        <li>The new sequence search is coming Q1 2019</li>
+                        <li>The new cloud toolchain is nice to work with (especially, when upstream tech is stable)</li>
+                    </ul>
                 </section>
 			</div>
 			<img style="border: none; background: none; box-shadow: none; position: absolute; bottom: 30px; left: 0%; transform: scale(0.5); z-index: 1000;" src="/img/logo.png">
